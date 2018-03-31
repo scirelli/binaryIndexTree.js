@@ -132,7 +132,7 @@
  *                                            3                        1            4       9
  *                                          [7,7]                   [11,11]      [13,13] [13,14]
  *                                                                                1101
- * [NaN,  1,    8,    3,   11,    5,   13,    3,   29,    6,    8,     1,   10,     4,      9]   
+ * [NaN,  1,    8,    3,   11,    7,   15,    3,   31,    6,    8,     1,   10,     4,      9]   
  *    0   1     2     3     4     5     6     7     8     9    10     11    12     13      14
  *       0001  0010  0011  0100  0101 0110  0111  1000  1001  1010   1011  1100   1101    1110   ◁ The index in binary
  *
@@ -159,6 +159,8 @@ if(global) var window = global;
 
     BIT.prototype = {
         add: function add(num, index){
+            if(index < 1) return this;
+
             while(index < this.bit.length){
                 this.bit[index] += num;
                 index = rightUp(index);

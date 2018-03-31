@@ -24,12 +24,32 @@ if(require) window.BIT = require('./bitIndexTree');
         });
 
         describe('Add method', function(){
-            let bit = new BIT(array);
+            let bit = new BIT(array),
+                expectedResult = [NaN, 1, 8, 3, 11, 7, 15, 3, 31, 6, 8, 1, 10, 4, 9];
 
             it('It should add the value to the correct elements. And return itself.', function(){
-                let expectedResult = [NaN, 1, 8, 3, 11, 7, 15, 3, 31, 6, 8, 1, 10, 4, 9];
-
                 assert(bit.add(2,5) === bit, 'bit.add(2,5) === bit');
+                for(let i=1, l=bit.bit.length; i<l; i++){
+                    assert(bit.bit[i] === expectedResult[i], bit.bit[i] + ' === ' + expectedResult[i]);
+                }
+            });
+
+            it('It should do nothing to the tree if the index is out of range.', function(){
+                assert(bit.add(20,25) === bit, 'bit.add(20,25) === bit');
+                for(let i=1, l=bit.bit.length; i<l; i++){
+                    assert(bit.bit[i] === expectedResult[i], bit.bit[i] + ' === ' + expectedResult[i]);
+                }
+            });
+            
+            it('It should do nothing to the tree if the index is out of range.', function(){
+                assert(bit.add(-1,25) === bit, 'bit.add(0,25) === bit');
+                for(let i=1, l=bit.bit.length; i<l; i++){
+                    assert(bit.bit[i] === expectedResult[i], bit.bit[i] + ' === ' + expectedResult[i]);
+                }
+            });
+
+            it('It should do nothing to the tree if the index is out of range.', function(){
+                assert(bit.add(0,25) === bit, 'bit.add(0,25) === bit');
                 for(let i=1, l=bit.bit.length; i<l; i++){
                     assert(bit.bit[i] === expectedResult[i], bit.bit[i] + ' === ' + expectedResult[i]);
                 }
